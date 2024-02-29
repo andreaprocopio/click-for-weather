@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapContainer, TileLayer, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, useMap, useMapEvents } from 'react-leaflet';
 import { useState, useEffect } from 'react';
 import ErrorBanner from './ErrorBanner';
 import MapOverlay from './MapOverlay';
@@ -11,12 +11,17 @@ const UpdateMapView = ({ center }) => {
   return null;
 };
 
-const Map = () => {
+const HandleMapClick = ({handleSetWeatherCords}) => {
+  const map = useMapEvents ({
+    click(e) {
+      handleSetWeatherCords(e.latlng.lat, e.latlng.lng)
+    }
+  })
+  return null;
+};
+
+const Map = ({handleSetWeatherCords, weatherCords}) => {
   const [error, setError] = useState(null);
-  const [userPosition, setUserPosition] = useState({
-    latitude: 51.505,
-    longitude: -0.09,
-  });
   const [loading, setLoading] = useState(false)
 
   function handleBannerClose() {
@@ -28,10 +33,7 @@ const Map = () => {
       setLoading(true)
       navigator.geolocation.getCurrentPosition(
         function(position) {
-          setUserPosition({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-          });
+          handleSetWeatherCords(position.coords.latitude, position.coords.longitude)
           setLoading(false)
         },
         function(error) {
@@ -54,13 +56,14 @@ const Map = () => {
   return (
     <>
       {error && <ErrorBanner text={"We were unable to get your starting position."} handleBannerClose={handleBannerClose} />}    
-      <MapContainer className='react-weather-map h-[400px] md:h-[500px] lg:h-[600px] rounded-lg relative' center={[userPosition.latitude, userPosition.longitude]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer className='react-weather-map h-[400px] md:h-[500px] lg:h-[600px] rounded-lg relative' center={[weatherCords.latitude, weatherCords.longitude]} zoom={13} scrollWheelZoom={false}>
         {loading && !error && <MapOverlay />}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <UpdateMapView center={[userPosition.latitude, userPosition.longitude]} />
+        <UpdateMapView center={[weatherCords.latitude, weatherCords.longitude]} />
+        <HandleMapClick handleSetWeatherCords={handleSetWeatherCords} />
       </MapContainer>
     </>
   );
