@@ -1,12 +1,11 @@
 import React from 'react'
 import './App.scss';
-import Component from './components/Component';
+import Map from './components/Map';
 
 const App = () => {
   return (
     <>
-      <div>React weather</div>
-      <Component /> 
+      <Map /> 
     </>
   )
 }
