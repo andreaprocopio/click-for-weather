@@ -12,6 +12,8 @@ const App = () => {
     longitude: -0.09
   })
 
+  const [isNight, setIsNight] = useState(false)
+
   function handleSetWeatherCords(lat, lon) {
     setWeatherCords({
       latitude: lat,
@@ -19,14 +21,18 @@ const App = () => {
     })
   }
 
+  function handleSetIsNight(value) {
+    setIsNight(value)
+  }
+
   return (
-    <>
-      <div className='react-weather-container max-w-7xl lg:p-20 md:p-10 p-5 m-auto bg-slate-900	'>
-        <IntroTitle />
+    <div className={'h-full ' + (isNight ? 'bg-gradient-to-b from-slate-900 via-gray-600 to-neutral-800' : 'bg-gradient-to-b from-orange-500 via-amber-300 to-yellow-300')}>
+      <div className='react-weather-container max-w-5xl md:p-10 p-5 m-auto'>
+        <IntroTitle isNight={isNight} />
         <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
-        <CurrentWeather weatherCords={weatherCords} />
+        <CurrentWeather weatherCords={weatherCords} handleSetIsNight={handleSetIsNight} isNight={isNight}/>
       </div>
-    </>
+    </div>
   )
 }
 

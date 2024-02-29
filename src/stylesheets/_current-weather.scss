@@ -1,5 +1,5 @@
 .current-weather {
-    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../../public/day.png');
+    background-image: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('../../public/day.png');
     overflow: hidden;
 
     &--night {
@@ -14,27 +14,16 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
-    }
-
-    &__img {
-        width: 70px;
-        height: 70px;
     }
 
     &__city-name {
         white-space: nowrap;
         column-span: 2;
         min-width: 160px;
-        justify-content: start;
-    }
-
-    &__temp {
-        font-size: 40px;
     }
 
     &__description {
-        font-size: 12px;
+        white-space: nowrap;
     }
 
     &__temp-max-min,
