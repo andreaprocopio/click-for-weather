@@ -3,6 +3,7 @@ import './App.scss';
 import Map from './components/Map';
 import IntroTitle from './components/IntroTitle';
 import { useState } from 'react';
+import CurrentWeather from './components/CurrentWeather';
 
 const App = () => {
 
@@ -20,9 +21,10 @@ const App = () => {
 
   return (
     <>
-      <div className='react-weather-container max-w-7xl lg:p-20 md:p-10 p-5 m-auto'>
+      <div className='react-weather-container max-w-7xl lg:p-20 md:p-10 p-5 m-auto bg-slate-900	'>
         <IntroTitle />
         <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
+        <CurrentWeather weatherCords={weatherCords} />
       </div>
     </>
   )

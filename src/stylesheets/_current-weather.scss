@@ -1,0 +1,54 @@
+.current-weather {
+    background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('../../public/day.png');
+    overflow: hidden;
+
+    &--night {
+        background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0,0,0,0.4)), url('../../public/night.png');
+
+        .current-weather__img {
+            filter: invert(100%);
+        }
+    }
+
+    & > * {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+    }
+
+    &__img {
+        width: 70px;
+        height: 70px;
+    }
+
+    &__city-name {
+        white-space: nowrap;
+        column-span: 2;
+        min-width: 160px;
+        justify-content: start;
+    }
+
+    &__temp {
+        font-size: 40px;
+    }
+
+    &__description {
+        font-size: 12px;
+    }
+
+    &__temp-max-min,
+    &__humidity-wind-speed {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        & > span {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+    }
+}
