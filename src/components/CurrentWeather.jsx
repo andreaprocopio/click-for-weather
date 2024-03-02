@@ -27,14 +27,8 @@ const CurrentWeather = ({weatherCords}) => {
                     throw new Error
                 }
                 setError(null)
-                setWeather(weatherData)
-                console.log(weather)
-                dispatch(updateWeather({
-                    weatherType: weather.weather ? weather.weather[0].main : '',
-                    time: weather.weather ? weather.weather[0].icon.endsWith('n') ? 'night' : 'day' : ''
-                }))                
+                setWeather(weatherData)            
             } catch(err) {
-                console.log("catched")
                 setError(true)
             }
         }
@@ -50,7 +44,6 @@ const CurrentWeather = ({weatherCords}) => {
     const weatherHumidity = weather.main ?  weather.main.humidity : ''
     const weatherWindSpeed = weather.wind ? weather.wind.speed : ''
     const countryCode = weather.sys ? weather.sys.country : ''
-
     const IMAGE_URLS = `https://openweathermap.org/img/wn/${weatherImageId}@2x.png`
 
     function handleBannerClose () {
@@ -63,6 +56,16 @@ const CurrentWeather = ({weatherCords}) => {
     time = time ? time : 'day'
     let textColor = themeMapping[weatherType][time].textColor
 
+    console.log(weather)
+
+    if (weather) {
+        dispatch(updateWeather({
+            weatherType: weather.weather ? weather.weather[0].main : '',
+            time: weather.weather ? weather.weather[0].icon.endsWith('n') ? 'night' : 'day' : ''
+        }))    
+    }
+
+
     if (Object.keys(weather).length === 0) {
         return (
             <div>No weather data</div>
@@ -72,7 +75,7 @@ const CurrentWeather = ({weatherCords}) => {
     return (
         <>
             {error && <ErrorBanner text={"Please, avoid world tours."} handleBannerClose={handleBannerClose} />}
-            <div className={"p-5 shadow-md grid grid-cols-3 gap-4 current-weather rounded-lg mt-4 " + (time === 'night' ? "current-weather--night" : "")}>
+            <div className={"p-5 shadow-2xl grid grid-cols-3 gap-4 current-weather rounded-lg mt-4 " + (time === 'night' ? "current-weather--night" : "")}>
                 <div><img className='current-weather__img w-[70px] h-[70px] md:w-[96px] md:h-[96px]' src={IMAGE_URLS} alt="icon" /></div>
                 <p className={'-ml-5 sm:-ml-0 justify-start sm:justify-center current-weather__city-name text-xl md:text-2xl lg:text-4xl ' + (textColor)}>{countryCode}{cityName ? `, ${cityName}` : ''}</p>
                 <div></div>
