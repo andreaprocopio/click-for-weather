@@ -12,7 +12,7 @@ const IntroTitle = () => {
 
   return (
     <>
-        <h1 className={"mb-6 text-3xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center " + textColor}>React Weather App</h1>
+        <h1 className={"mb-6 text-3xl font-extrabold leading-none tracking-tight md:text-5xl lg:text-6xl text-center " + textColor}>Click for weather!</h1>
     </>
   )
 }

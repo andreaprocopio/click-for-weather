@@ -7,6 +7,7 @@ import CurrentWeather from './components/CurrentWeather';
 import store from './store';
 import { Provider } from 'react-redux';
 import AppBackground from './components/AppBackground';
+import ForecastWeather from './components/ForecastWeather';
 
 const App = () => {
   const [weatherCords, setWeatherCords] = useState({
@@ -28,6 +29,7 @@ const App = () => {
           <IntroTitle />
           <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
           <CurrentWeather weatherCords={weatherCords} />
+          <ForecastWeather weatherCords={weatherCords} />
         </div>
       </AppBackground>
     </Provider>
