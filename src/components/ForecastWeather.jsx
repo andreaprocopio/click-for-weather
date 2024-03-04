@@ -1,40 +1,42 @@
-import React from 'react'
-import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useState, useEffect } from 'react';
+import ForecastItem from './ForecastItem';
 
-const ForecastWeather = ({weatherCords}) => {
+const ForecastWeather = ({ weatherCords }) => {
+    const API_KEY = "f8106cb232c7ef1f9e975f6539646292";
+    const URL =  `https://api.openweathermap.org/data/2.5/forecast?lat=${weatherCords.latitude}&lon=${weatherCords.longitude}&appid=${API_KEY}&units=metric`;
 
-    const API_KEY = "f8106cb232c7ef1f9e975f6539646292"
-    // const URL =  `api.openweathermap.org/data/2.5/forecast?lat=${weatherCords.latitude}&lon=${weatherCords.longitude}&appid=${API_KEY}&units=metric`
-    const URL = `api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=${API_KEY}`
-
-
-
-    const [weather, setWeather] = useState({})
-    const [error, setError] = useState(null)
+    const [weather, setWeather] = useState([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
-        async function fetchWeather () {
+        async function fetchWeather() {
             try {
                 const res = await fetch(URL);
-                const weatherData = await res.text()
+                const weatherData = await res.json();
                 if (!res.ok) {
-                    throw new Error
+                    throw new Error();
                 }
-                setError(null)
-                setWeather(weatherData)
+                setError(null);
+                setWeather(Array.from(weatherData.list));
             } catch(err) {
-                console.error(err)
-                setError(true)
+                console.error(err);
+                setError(true);
             }
         }
-        fetchWeather()    
-    }, [weatherCords])
-
+        fetchWeather();
+    }, [weatherCords]);
 
     return (
-        <div>ForecastWeather</div>
-    )
-}
+        <>
+            {weather.length > 0 && (
+                <div className="flex mt-4 gap-3">
+                    {weather.slice(0, 5).map((item, index) => (
+                        <ForecastItem key={index} forecastWeather={item} weatherCords={weatherCords} />
+                    ))}
+                </div>
+            )}
+        </>
+    );
+};
 
-export default ForecastWeather
+export default ForecastWeather;

@@ -13,7 +13,7 @@ const AppBackground = ({ children }) => {
     const className = time + '-' + weatherType
 
     return (
-        <div className={'h-full app-background ' + className} >
+        <div className={'min-h-full app-background ' + className} >
             {children}
         </div>
     )
