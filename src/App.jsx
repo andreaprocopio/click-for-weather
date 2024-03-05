@@ -1,13 +1,12 @@
 import React from 'react'
 import './App.scss';
 import Map from './components/Map';
-import IntroTitle from './components/IntroTitle';
 import { useState } from 'react';
 import CurrentWeather from './components/CurrentWeather';
-import store from './store';
-import { Provider } from 'react-redux';
 import AppBackground from './components/AppBackground';
 import ForecastWeather from './components/ForecastWeather';
+import { themeMapping } from './theme';
+import { useSelector } from 'react-redux';
 
 const App = () => {
   const [weatherCords, setWeatherCords] = useState({
@@ -22,17 +21,21 @@ const App = () => {
     })
   }
 
+  let time = useSelector(state => state.weather.time)
+  time = time ? time : 'day'
+  let backgroundColor = themeMapping[time].backgroundColor
+
   return (
-    <Provider store={store}>
-      <AppBackground>
-        <div className='h-full react-weather-container max-w-5xl md:p-10 p-5 m-auto'>
-          <IntroTitle />
-          <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
+    <AppBackground>
+      <div className={"rounded-xl shadow-lg overflow-hidden " + (backgroundColor)} style={{ width: 414 }}>
+        <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
+        <div className={"rounded-t-lg relative z-10 px-5 pt-2 pb-5 " + (backgroundColor)}>
+          <div className="w-10 h-1 bg-gray-500 rounded mx-auto mb-5" />
           <CurrentWeather weatherCords={weatherCords} />
           <ForecastWeather weatherCords={weatherCords} />
         </div>
-      </AppBackground>
-    </Provider>
+      </div>
+    </AppBackground>
   )
 }
 

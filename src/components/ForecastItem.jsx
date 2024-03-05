@@ -1,4 +1,6 @@
 import React from 'react'
+import { themeMapping } from '../theme';
+import { useSelector } from 'react-redux';
 
 const ForecastItem = ({ forecastWeather }) => {
 
@@ -8,13 +10,23 @@ const ForecastItem = ({ forecastWeather }) => {
     const weatherImageId = forecastWeather.weather ? forecastWeather.weather[0].icon : ''
     const IMAGE_URLS = `https://openweathermap.org/img/wn/${weatherImageId}@2x.png`
     const timeFormatted = dateString.split(" ")[1].split(":").slice(0, 2).join(":");
+    const forecastItemTemp = forecastWeather.main.temp
+    let time = useSelector(state => state.weather.time)
+    time = time ? time : 'day'
+    let backgroundColor = themeMapping[time].forecastItemBg
+    let textColor = themeMapping[time].textColor
 
     return (
-        <div className={'shadow-2xl grow flex flex-col justify-center items-center rounded-lg pt-2 border-2 border-slate-950 border-solid'} >
-            <span className='text-center text-xs text-white md:text-base lg:text-lg'>{formattedDate}</span>
+        <>
+        <div className={"flex flex-col rounded-lg p-2 justify-center items-center " + (backgroundColor)}>
             <img className='current-weather__img w-[50px] h-[50px] md:w-[60px] md:h-[60px]' src={IMAGE_URLS} alt="icon" />
-            <span className='text-center text-xs text-white md:text-base lg:text-lg'>{timeFormatted}</span>
+            <div className="text-center">
+                <strong className={"text-base " + (textColor)}>{forecastItemTemp ? `${forecastItemTemp}°` : '--°'}</strong>
+                <br />
+                <b className={"font-normal text-xs md:text-base lg:text-lg " + (textColor)}>{timeFormatted}</b>
+            </div>
         </div>
+        </>
     )
 }
 

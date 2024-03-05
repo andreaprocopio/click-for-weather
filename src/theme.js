@@ -1,34 +1,12 @@
 export const themeMapping = {
-    "Clear": {
-        "day": {
-            textColor: "text-slate-800",
-        },
-        "night": {
-            textColor: "text-white",
-        }
+    "day": {
+        textColor: "text-gray-800",
+        backgroundColor: "bg-slate-100",
+        forecastItemBg: "shadow-2xl bg-white"
     },
-    "Clouds": {
-        "day": {
-            textColor: "text-slate-800",
-        },
-        "night": {
-            textColor: "text-white",
-        }
-    },
-    "Snow": {
-        "day": {
-            textColor: "text-slate-800",
-        },
-        "night": {
-            textColor: "text-white",
-        }
-    },
-    "Rain": {
-        "day": {
-            textColor: "text-white",
-        },
-        "night": {
-            textColor: "text-white",
-        }
+    "night": {
+        textColor: "text-white",
+        backgroundColor: "bg-gray-800",
+        forecastItemBg: "bg-gray-900"
     }
 }

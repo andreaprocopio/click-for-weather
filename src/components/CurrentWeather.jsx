@@ -13,10 +13,12 @@ import { MdOutlineModeNight } from "react-icons/md";
 
 const CurrentWeather = ({weatherCords}) => {
 
-    const API_KEY = process.env.REACT_APP_OPEN_WEATHER_API
+    // const API_KEY = process.env.REACT_APP_OPEN_WEATHER_API
+    const API_KEY = "f8106cb232c7ef1f9e975f6539646292"
     const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${weatherCords.latitude}&lon=${weatherCords.longitude}&appid=${API_KEY}&units=metric`
 
-    const API_KEY_bgc = process.env.REACT_APP_BIG_DATA_CLOUD_API
+    // const API_KEY_bgc = process.env.REACT_APP_BIG_DATA_CLOUD_API
+    const API_KEY_bgc = "bdc_c26d2c016c2d47cc908de9ac2cef363d"
     const URL_bgc = `https://api-bdc.net/data/timezone-by-location?latitude=-${weatherCords.latitude}&longitude=${weatherCords.longitude}&key=${API_KEY_bgc}`
 
     const [weather, setWeather] = useState({})
@@ -79,7 +81,7 @@ const CurrentWeather = ({weatherCords}) => {
     weatherType = weatherType ? weatherType : 'Clear'
     let time = useSelector(state => state.weather.time)
     time = time ? time : 'day'
-    let textColor = themeMapping[weatherType][time].textColor
+    let textColor = themeMapping[time].textColor
 
     if (weather) {
         dispatch(updateWeather({
@@ -98,27 +100,21 @@ const CurrentWeather = ({weatherCords}) => {
     return (
         <>
             {error && <ErrorBanner text={"Please, avoid world tours."} handleBannerClose={handleBannerClose} />}
-            <div className={"p-5 relative shadow-2xl grid grid-cols-3 gap-4 current-weather rounded-lg mt-4 " + (time === 'night' ? "current-weather--night" : "")}>
+            <div className={"relative grid grid-cols-3 gap-x-8 gap-y-4 current-weather rounded-lg " + (time === 'night' ? "current-weather--night" : "")}>
                 { localTimeString && time === 'day' && (
-                    <div className={"absolute right-2 top-2 " + (textColor)}>
+                    <div className={"absolute right-1 top-1 " + (textColor)}>
                         <span className='text-xs pr-1'>{localTimeString}</span>
                         <WiDaySunny size={18} className={textColor} />
                     </div>
                 )}
                 { localTimeString && time === 'night' && (
-                    <div className={"absolute right-2 top-2 " + (textColor)}>
+                    <div className={"absolute right-1 top-1 " + (textColor)}>
                         <span className='text-xs pr-1'>{localTimeString}</span>
                         <MdOutlineModeNight size={18} className={textColor} />
                     </div>
                 )}
                 <div><img className='current-weather__img w-[70px] h-[70px] md:w-[96px] md:h-[96px]' src={IMAGE_URLS} alt="icon" /></div>
                 <p className={'-ml-5 sm:-ml-0 justify-start sm:justify-center current-weather__city-name text-xl md:text-2xl lg:text-4xl ' + (textColor)}>{countryCode}{cityName ? `, ${cityName}` : ''}</p>
-                <div></div>
-                <div></div>
-                <div className={'current-weather__temp text-4xl md:text-5xl lg:text-6xl ' + (textColor)}>{weatherTemp ? `${weatherTemp}°` : '--°'}</div>
-                <div></div>
-                <div></div>
-                <div className={'current-weather__description text-sm md:text-base lg:text-lg ' + (textColor)}>{weatherDescription}</div>
                 <div></div>
                 <div className='current-weather__temp-max-min text-sm md:text-base lg:text-lg'>
                     <span className={textColor}>
@@ -130,7 +126,12 @@ const CurrentWeather = ({weatherCords}) => {
                         <FaLongArrowAltDown />
                     </span>
                 </div>
-                <div></div>
+
+                <div className='flex flex-col'>
+                    <span className={'current-weather__temp text-4xl md:text-5xl lg:text-6xl ' + (textColor)}>{weatherTemp ? `${weatherTemp}°` : '--°'}</span>
+                    <span className={'current-weather__description text-sm md:text-base lg:text-lg ' + (textColor)}>{weatherDescription}</span>
+                </div>
+
                 <div className='current-weather__humidity-wind-speed text-sm md:text-base lg:text-lg'>
                     <span className={textColor}>
                         {weatherHumidity}

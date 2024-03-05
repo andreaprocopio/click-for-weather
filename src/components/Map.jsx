@@ -56,7 +56,7 @@ const Map = ({handleSetWeatherCords, weatherCords}) => {
   return (
     <>
       {error && <ErrorBanner text={"We were unable to get your starting position."} handleBannerClose={handleBannerClose} />}    
-      <MapContainer className='react-weather-map h-[250px] md:h-[400px] rounded-lg relative' center={[weatherCords.latitude, weatherCords.longitude]} zoom={13} scrollWheelZoom={false}>
+      <MapContainer className='react-weather-map w-full relative h-[430px]' center={[weatherCords.latitude, weatherCords.longitude]} zoom={13} scrollWheelZoom={false}>
         {loading && !error && <MapOverlay />}
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -70,3 +70,4 @@ const Map = ({handleSetWeatherCords, weatherCords}) => {
 }
 
 export default Map;
+
