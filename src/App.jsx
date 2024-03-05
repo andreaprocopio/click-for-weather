@@ -3,7 +3,6 @@ import './App.scss';
 import Map from './components/Map';
 import { useState } from 'react';
 import CurrentWeather from './components/CurrentWeather';
-import AppBackground from './components/AppBackground';
 import ForecastWeather from './components/ForecastWeather';
 import { themeMapping } from './theme';
 import { useSelector } from 'react-redux';
@@ -26,7 +25,7 @@ const App = () => {
   let backgroundColor = themeMapping[time].backgroundColor
 
   return (
-    <AppBackground>
+    <div className='min-w-screen min-h-screen bg-gray-200 flex items-center justify-center px-5 py-5'>
       <div className={"rounded-xl shadow-lg overflow-hidden " + (backgroundColor)} style={{ width: 414 }}>
         <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
         <div className={"rounded-t-lg relative z-10 px-5 pt-2 pb-5 " + (backgroundColor)}>
@@ -35,7 +34,7 @@ const App = () => {
           <ForecastWeather weatherCords={weatherCords} />
         </div>
       </div>
-    </AppBackground>
+    </div>
   )
 }
 

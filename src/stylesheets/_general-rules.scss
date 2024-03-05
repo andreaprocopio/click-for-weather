@@ -1,5 +1,4 @@
 html, body {
-    // height: 100%;
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
@@ -11,10 +10,4 @@ html {
 
 body {
     height: 100%;
-}
-
-.test-bg-image {
-    background-image: url('../../public/rain.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
