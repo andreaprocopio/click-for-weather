@@ -13,12 +13,10 @@ import { MdOutlineModeNight } from "react-icons/md";
 
 const CurrentWeather = ({weatherCords}) => {
 
-    // const API_KEY = process.env.REACT_APP_OPEN_WEATHER_API
-    const API_KEY = "f8106cb232c7ef1f9e975f6539646292"
+    const API_KEY = process.env.REACT_APP_OPEN_WEATHER_API
     const URL = `https://api.openweathermap.org/data/2.5/weather?lat=${weatherCords.latitude}&lon=${weatherCords.longitude}&appid=${API_KEY}&units=metric`
 
-    // const API_KEY_bgc = process.env.REACT_APP_BIG_DATA_CLOUD_API
-    const API_KEY_bgc = "bdc_c26d2c016c2d47cc908de9ac2cef363d"
+    const API_KEY_bgc = process.env.REACT_APP_BIG_DATA_CLOUD_API
     const URL_bgc = `https://api-bdc.net/data/timezone-by-location?latitude=-${weatherCords.latitude}&longitude=${weatherCords.longitude}&key=${API_KEY_bgc}`
 
     const [weather, setWeather] = useState({})

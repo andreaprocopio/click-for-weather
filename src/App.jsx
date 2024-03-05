@@ -25,7 +25,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <AppBackground>
-        <div className='react-weather-container max-w-5xl md:p-10 p-5 m-auto'>
+        <div className='h-full react-weather-container max-w-5xl md:p-10 p-5 m-auto'>
           <IntroTitle />
           <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
           <CurrentWeather weatherCords={weatherCords} />
