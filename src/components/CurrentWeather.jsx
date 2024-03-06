@@ -114,7 +114,7 @@ const CurrentWeather = ({weatherCords}) => {
                     </div>
                 )}
                 <div><img className='current-weather__img w-[70px] h-[70px] md:w-[96px] md:h-[96px]' src={IMAGE_URLS} alt="icon" /></div>
-                <p className={'-ml-5 sm:-ml-0 justify-start sm:justify-center current-weather__city-name text-xl md:text-2xl lg:text-4xl ' + (textColor)}>{countryCode}{cityName ? `, ${cityName}` : ''}</p>
+                <p className={'-ml-5 sm:-ml-0 justify-start sm:justify-center current-weather__city-name text-xl md:text-2xl ' + (textColor)}>{countryCode}{cityName ? `, ${cityName}` : ''}</p>
                 <div></div>
                 <div className='current-weather__temp-max-min text-sm md:text-base lg:text-lg'>
                     <span className={textColor}>
