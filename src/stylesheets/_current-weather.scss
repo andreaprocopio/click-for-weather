@@ -1,12 +1,6 @@
 .current-weather {
     overflow: hidden;
 
-    &--night {
-        .current-weather__img {
-            filter: invert(100%);
-        }
-    }
-
     & > * {
         display: flex;
         align-items: center;

@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <div className='min-w-screen min-h-screen bg-gray-200 flex items-center justify-center px-5 py-5'>
-      <div className={"rounded-xl shadow-lg overflow-hidden " + (backgroundColor)} style={{ width: 414 }}>
+      <div className={"rounded-xl shadow-lg overflow-hidden sm:w-[414px] md:w-[500px] lg:w-[500px] " + (backgroundColor)} >
         <Map handleSetWeatherCords={handleSetWeatherCords} weatherCords={weatherCords} /> 
         <div className={"rounded-t-lg relative z-10 px-5 pt-2 pb-5 " + (backgroundColor)}>
           <div className="w-10 h-1 bg-gray-500 rounded mx-auto mb-5" />
