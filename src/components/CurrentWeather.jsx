@@ -9,6 +9,8 @@ import { updateWeather } from '../slices/weatherSlice'
 import { themeMapping } from '../theme'
 import { WiDaySunny } from "react-icons/wi";
 import { MdOutlineModeNight } from "react-icons/md";
+import { motion } from 'framer-motion';
+import { act } from 'react-dom/test-utils';
 
 
 const CurrentWeather = ({weatherCords}) => {
@@ -35,7 +37,7 @@ const CurrentWeather = ({weatherCords}) => {
                     throw new Error
                 }
                 setError(null)
-                setWeather(weatherData)            
+                setWeather(weatherData)
             } catch(err) {
                 setError(true)
             }
@@ -87,7 +89,7 @@ const CurrentWeather = ({weatherCords}) => {
         dispatch(updateWeather({
             weatherType: weather.weather ? weather.weather[0].main : '',
             time: weather.weather ? weather.weather[0].icon.endsWith('n') ? 'night' : 'day' : ''
-        }))    
+        }))
     }
 
 
@@ -96,11 +98,22 @@ const CurrentWeather = ({weatherCords}) => {
             <div>No weather data</div>
         )
     }
-    
+
     return (
         <>
             {error && <ErrorBanner text={"Please, avoid world tours."} handleBannerClose={handleBannerClose} />}
-            <div className={"relative grid grid-cols-3 gap-x-8 gap-y-4 current-weather rounded-lg " + (time === 'night' ? "current-weather--night" : "")}>
+            <motion.div
+                className={"relative grid grid-cols-3 gap-x-8 gap-y-4 current-weather rounded-lg " + (time === 'night' ? "current-weather--night" : "")}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 260,
+                  damping: 20,
+                  delay: 0.2
+                }}
+                key={weatherCords.latitude + weatherCords.longitude}
+            >
                 { localTimeString && time === 'day' && (
                     <div className={"absolute right-1 top-1 " + (textColor)}>
                         <span className='text-xs pr-1'>{localTimeString}</span>
@@ -142,7 +155,7 @@ const CurrentWeather = ({weatherCords}) => {
                         <LuWind />
                     </span>
                 </div>
-            </div>
+            </motion.div>
         </>
     )
 }

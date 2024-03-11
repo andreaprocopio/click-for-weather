@@ -1,6 +1,7 @@
 import React from 'react'
 import { themeMapping } from '../theme';
 import { useSelector } from 'react-redux';
+import { motion } from 'framer-motion';
 
 const ForecastItem = ({ forecastWeather }) => {
 
@@ -15,18 +16,26 @@ const ForecastItem = ({ forecastWeather }) => {
     time = time ? time : 'day'
     let backgroundColor = themeMapping[time].forecastItemBg
     let textColor = themeMapping[time].textColor
+    const item = {
+        hidden: { y: 10, opacity: 0 },
+        visible: {
+          y: 0,
+          opacity: 1
+        }
+    };
 
     return (
-        <>
-        <div className={"flex flex-col rounded-lg p-2 justify-center items-center " + (backgroundColor)}>
+        <motion.div
+            className={"flex flex-col rounded-lg p-2 justify-center items-center " + (backgroundColor)}
+            variants={item}
+        >
             <img className='current-weather__img w-[50px] h-[50px] md:w-[60px] md:h-[60px]' src={IMAGE_URLS} alt="icon" />
             <div className="text-center">
                 <strong className={"text-base " + (textColor)}>{forecastItemTemp ? `${forecastItemTemp}°` : '--°'}</strong>
                 <br />
                 <b className={"font-normal text-xs md:text-base lg:text-lg " + (textColor)}>{timeFormatted}</b>
             </div>
-        </div>
-        </>
+        </motion.div>
     )
 }
 

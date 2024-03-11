@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import ForecastItem from './ForecastItem';
+import { motion } from 'framer-motion';
 
 const ForecastWeather = ({ weatherCords }) => {
     // const API_KEY = process.env.REACT_APP_OPEN_WEATHER_API;
@@ -8,6 +9,18 @@ const ForecastWeather = ({ weatherCords }) => {
 
     const [weather, setWeather] = useState([]);
     const [error, setError] = useState(null);
+
+    const container = {
+        hidden: { opacity: 1, scale: 0 },
+        visible: {
+          opacity: 1,
+          scale: 1,
+          transition: {
+            delayChildren: 0.2,
+            staggerChildren: 0.1
+          }
+        }
+      };
 
     useEffect(() => {
         async function fetchWeather() {
@@ -30,11 +43,17 @@ const ForecastWeather = ({ weatherCords }) => {
     return (
         <>
             {weather.length > 0 && (
-                <div className="flex flex-row gap-2 mt-8 justify-between">
+                <motion.div
+                    className="flex flex-row gap-2 mt-8 justify-between"
+                    variants={container}
+                    initial="hidden"
+                    animate="visible"
+                    key={weatherCords.latitude + weatherCords.longitude}
+                >
                     {weather.slice(0, 4).map((item, index) => (
                         <ForecastItem key={index} forecastWeather={item} weatherCords={weatherCords} />
                     ))}
-                </div>
+                </motion.div>
             )}
         </>
     );
